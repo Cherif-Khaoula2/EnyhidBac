@@ -1,198 +1,177 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600&display=swap');
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body { background: transparent; }
-
-  .scene {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #fff0f5 0%, #fce4f0 40%, #f0d9ff 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .deco {
-    position: absolute;
-    pointer-events: none;
-    font-size: 1.5rem;
-    animation: float 6s ease-in-out infinite;
-  }
-  .deco:nth-child(1)  { top: 4%;  left: 6%;  animation-delay: 0s; }
-  .deco:nth-child(2)  { top: 8%;  right: 8%; animation-delay: 1s; }
-  .deco:nth-child(3)  { top: 20%; left: 2%;  animation-delay: 2s; }
-  .deco:nth-child(4)  { bottom: 12%; left: 5%;  animation-delay: 0.5s; }
-  .deco:nth-child(5)  { bottom: 8%;  right: 5%; animation-delay: 1.5s; }
-  .deco:nth-child(6)  { top: 45%; right: 3%;  animation-delay: 3s; }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(8deg); }
-  }
-
-  .card {
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(12px);
-    border-radius: 32px;
-    padding: 3rem 2.5rem;
-    max-width: 480px;
-    width: 100%;
-    text-align: center;
-    border: 1.5px solid rgba(255,182,210,0.4);
-    box-shadow: 0 20px 60px rgba(220,100,160,0.12), 0 4px 20px rgba(160,80,200,0.08);
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .card:hover { transform: translateY(-4px); }
-
-  .ribbon {
-    font-family: 'Nunito', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: #d4699e;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-
-  .crown {
-    font-size: 3.5rem;
-    margin-bottom: 0.8rem;
-    display: block;
-    animation: crown-bounce 2s ease-in-out infinite;
-  }
-  @keyframes crown-bounce {
-    0%, 100% { transform: scale(1) rotate(-3deg); }
-    50% { transform: scale(1.08) rotate(3deg); }
-  }
-
-  .name {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #e0609a, #9b59b6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.4rem;
-  }
-
-  .subtitle {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #b06bb0;
-    font-size: 1.05rem;
-    margin-bottom: 2rem;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 2rem;
-  }
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #f0a0cc, transparent);
-  }
-  .divider-heart { color: #e06090; font-size: 1rem; }
-
-  .reveal-btn {
-    background: linear-gradient(135deg, #e8709a, #a855b5);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 36px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(200,80,150,0.3);
-    margin-bottom: 1rem;
-  }
-  .reveal-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 28px rgba(200,80,150,0.45);
-  }
-  .reveal-btn:active { transform: scale(0.97); }
-
-  .hint {
-    font-family: 'Nunito', sans-serif;
-    font-size: 12px;
-    color: #c08aaa;
-    font-style: italic;
-  }
-
-  .message-area {
-    display: none;
-    animation: fade-up 0.8s ease forwards;
-  }
-  .message-area.visible { display: block; }
-
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .msg-paragraph {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    line-height: 1.85;
-    color: #7a4070;
-    margin-bottom: 1.2rem;
-    text-align: left;
-  }
-
-  .highlight-line {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: #d4609e;
-    text-align: center;
-    margin: 1.5rem 0;
-  }
-
-  .signature {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: #a06090;
-    text-align: right;
-    margin-top: 1.5rem;
-  }
-
-  .confetti-wrap {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    overflow: hidden;
-    border-radius: 32px;
-  }
-
-  .confetti-piece {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    opacity: 0;
-    animation: confetti-fall 3s ease forwards;
-  }
-  @keyframes confetti-fall {
-    0%   { opacity: 1; transform: translateY(-20px) rotate(0deg) scale(1); }
-    100% { opacity: 0; transform: translateY(340px) rotate(720deg) scale(0.5); }
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: transparent; }
+.scene {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff0f5 0%, #fce4f0 40%, #f0d9ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.deco {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.2rem;
+  animation: float 6s ease-in-out infinite;
+}
+.deco:nth-child(1)  { top: 3%;  left: 4%;  animation-delay: 0s; }
+.deco:nth-child(2)  { top: 5%;  right: 4%; animation-delay: 1s; }
+.deco:nth-child(3)  { top: 18%; left: 1%;  animation-delay: 2s; }
+.deco:nth-child(4)  { bottom: 10%; left: 3%;  animation-delay: 0.5s; }
+.deco:nth-child(5)  { bottom: 6%;  right: 3%; animation-delay: 1.5s; }
+.deco:nth-child(6)  { top: 45%; right: 2%;  animation-delay: 3s; }
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(8deg); }
+}
+.card {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: clamp(1.4rem, 5vw, 2.8rem) clamp(1.2rem, 5vw, 2.4rem);
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  border: 1.5px solid rgba(255,182,210,0.4);
+  box-shadow: 0 16px 50px rgba(220,100,160,0.13), 0 4px 16px rgba(160,80,200,0.08);
+  position: relative;
+}
+.ribbon {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(9px, 2.5vw, 11px);
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #d4699e;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.crown {
+  font-size: clamp(2.4rem, 10vw, 3.5rem);
+  margin-bottom: 0.6rem;
+  display: block;
+  animation: crown-bounce 2s ease-in-out infinite;
+}
+@keyframes crown-bounce {
+  0%, 100% { transform: scale(1) rotate(-3deg); }
+  50% { transform: scale(1.08) rotate(3deg); }
+}
+.name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 8vw, 2.6rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #e0609a, #9b59b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.3rem;
+}
+.subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #b06bb0;
+  font-size: clamp(0.82rem, 3.5vw, 1.05rem);
+  margin-bottom: 1.6rem;
+  line-height: 1.4;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.6rem;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f0a0cc, transparent);
+}
+.divider-heart { color: #e06090; font-size: 0.95rem; }
+.reveal-btn {
+  background: linear-gradient(135deg, #e8709a, #a855b5);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: clamp(11px, 3vw, 14px) clamp(26px, 8vw, 36px);
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(0.88rem, 4vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 18px rgba(200,80,150,0.3);
+  margin-bottom: 0.8rem;
+  width: 100%;
+  max-width: 260px;
+}
+.reveal-btn:hover { transform: scale(1.04); box-shadow: 0 6px 26px rgba(200,80,150,0.45); }
+.reveal-btn:active { transform: scale(0.97); }
+.hint {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(10px, 2.8vw, 12px);
+  color: #c08aaa;
+  font-style: italic;
+}
+.message-area {
+  display: none;
+  animation: fade-up 0.8s ease forwards;
+}
+.message-area.visible { display: block; }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.msg-paragraph {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+  line-height: 1.85;
+  color: #7a4070;
+  margin-bottom: 1.1rem;
+  text-align: left;
+}
+.highlight-line {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 4vw, 1.15rem);
+  color: #d4609e;
+  text-align: center;
+  margin: 1.3rem 0;
+  line-height: 1.5;
+}
+.signature {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.88rem, 3.5vw, 1rem);
+  color: #a06090;
+  text-align: right;
+  margin-top: 1.4rem;
+}
+.confetti-wrap {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+.confetti-piece {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: confetti-fall 3s ease forwards;
+}
+@keyframes confetti-fall {
+  0%   { opacity: 1; transform: translateY(-20px) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateY(320px) rotate(720deg) scale(0.5); }
+}
 </style>
-
+</head>
+<body>
 <div class="scene">
   <span class="deco">🌸</span>
   <span class="deco">✨</span>
@@ -207,15 +186,13 @@
     <div id="front-content">
       <p class="ribbon">✦ pour toi ✦</p>
       <span class="crown">👑</span>
-      <h1 class="name">Enyhid</h1>
+      <h1 class="name">Anahid</h1>
       <p class="subtitle">la fille qui fait tout, et qui le fait bien</p>
-
       <div class="divider">
         <div class="divider-line"></div>
         <span class="divider-heart">♡</span>
         <div class="divider-line"></div>
       </div>
-
       <button class="reveal-btn" onclick="reveal()">Ouvre ma lettre 💌</button>
       <p class="hint">un message rien que pour toi ✦</p>
     </div>
@@ -223,46 +200,35 @@
     <div class="message-area" id="message-area">
       <span class="crown">🌸</span>
       <h1 class="name">Anahid</h1>
-
-      <div class="divider" style="margin-bottom:1.5rem">
+      <div class="divider" style="margin-bottom:1.4rem">
         <div class="divider-line"></div>
         <span class="divider-heart">♡</span>
         <div class="divider-line"></div>
       </div>
-
       <p class="msg-paragraph">
         Tu sais, il y a des gens dans la vie qui ne passent pas — ils restent. Pas parce qu'ils le doivent, mais parce qu'ils illuminent chaque pièce dans laquelle ils entrent. Toi, tu es cette personne.
       </p>
-
       <p class="highlight-line">« Le Bac n'est pas la fin. C'est le tout début. »</p>
-
-    <p class="msg-paragraph">
-        Ces années de travail, de nuits tardives, de pages noircies et de leçons relues — tout ça, c'est toi. Ta détermination. Ta force tranquille. Ton coeur qui n'abandonne jamais.
-      </p>
-        <p class="msg-paragraph">
-      Le bac n'est qu'une étape. Toi, Anahid, tu regardes déjà vers l'horizon. Et je suis tellement fière de te voir grandir, rêver et avancer.</p> 
       <p class="msg-paragraph">
-       Aujourd'hui, je suis fière de toi. Pas juste pour l'examen — mais pour la femme brillante, douce et exceptionnelle que tu es chaque jour. Tu mérites tout le bonheur qui s'en vient.
+        Ces années de travail, de nuits tardives, de pages noircies et de leçons relues — tout ça, c'est toi. Ta détermination. Ta force tranquille. Ton cœur qui n'abandonne jamais.
       </p>
-
-     <p class="highlight-line">✨ Toujours fière de toi ✨</p>
-
-     <p class="signature">
-       Khaoula, qui t'aime fort💕 
-     </p>
+      <p class="msg-paragraph">
+        Le bac n'est qu'une étape. Toi, Anahid, tu regardes déjà vers l'horizon. Et je suis tellement fière de te voir grandir, rêver et avancer.
+      </p>
+      <p class="msg-paragraph">
+        Aujourd'hui, je suis fière de toi. Pas juste pour l'examen — mais pour la femme brillante, douce et exceptionnelle que tu es chaque jour. Tu mérites tout le bonheur qui s'en vient.
+      </p>
+      <p class="highlight-line">✨ Toujours fière de toi ✨</p>
+      <p class="signature">Khaoula, qui t'aime fort 💕</p>
     </div>
   </div>
 </div>
 
 <script>
 function reveal() {
-  const front = document.getElementById('front-content');
-  const msg   = document.getElementById('message-area');
-  const wrap  = document.getElementById('confetti-wrap');
-
-  front.style.display = 'none';
-  msg.classList.add('visible');
-
+  document.getElementById('front-content').style.display = 'none';
+  document.getElementById('message-area').classList.add('visible');
+  const wrap = document.getElementById('confetti-wrap');
   const colors = ['#f9a8d4','#c084fc','#fb7185','#fde68a','#a5f3fc','#bbf7d0'];
   for (let i = 0; i < 60; i++) {
     const p = document.createElement('div');
@@ -278,3 +244,5 @@ function reveal() {
   }
 }
 </script>
+</body>
+</html>
